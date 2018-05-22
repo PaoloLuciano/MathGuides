@@ -1,0 +1,326 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[left=.5cm,top=.1cm,right=.5cm,bottom=.5cm]{geometry}
+\usepackage{pdflscape}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{array}
+\pagenumbering{gobble}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Po}{Po}
+\DeclareMathOperator{\Bi}{Bi}
+\DeclareMathOperator{\Be}{Be}
+\DeclareMathOperator{\Geo}{Geo}
+\DeclareMathOperator{\BN}{BN}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Beta}{B}
+
+\begin{document}
+\begin{landscape}
+{\LARGE\textbf{Distribuciones Discretas}}\\
+\\
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{l|c|c|c|c|c| m{7cm}}
+
+%HEADER
+	\textbf{Distribución} & Función de Densidad & 
+	\begin{tabular}{@{}		c@{}}
+		Media \\ $\E [X]$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		Varianza \\ $\Var [X]$
+	\end{tabular} &
+	\begin{tabular}{@{}c@{}}
+		Función Generadora \\
+		de Momento
+	\end{tabular}& 
+	$ \E[X^a]$ & 
+	Notas/Uso \\
+	\hline
+	
+%BERNOULI
+\begin{tabular}{@{}l@{}}
+		\textbf{Bernoulli} \\
+		 $X \sim \Be(p)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)= p^x (1-p)^{1-x}$ \\
+		$ x =0,1; \quad 0 < p < 1 $
+	\end{tabular} &
+	$p$ & 
+	$p(1-p)$ &
+	$pe^t + (1-p)$ &
+	$\forall, a \in \mathbb{N} \quad \E[X^a]=p$ &
+	\begin{tabular}{l}
+	$p:=$ proba. de éxito. 
+	\end{tabular} \\
+	\hline 
+
+%BINOM
+	\begin{tabular}{@{}l@{}}
+		\textbf{Binomial} \\
+		 $X \sim \Bi(n,p)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)= \dbinom{n}{x} p^x q^{n-x}$ \\
+		$ x =0,1,...,n; \quad 0 < p < 1 $
+	\end{tabular} &
+	$np$ & 
+	$npq$ &
+	$(pe^t+q)^n $ &
+	
+	\renewcommand{\arraystretch}{1.3}
+	\begin{tabular}{@{}c@{}} 
+		$\E(X^a)=np\E[(Y+1)^{a-1}] $ \\
+		Con $Y$: v.a. binomial con \\
+		parámetros $n-1,p$
+	\end{tabular} & 
+	
+	\renewcommand{\arraystretch}{1.4}
+	\begin{tabular}{l}
+		Número de éxitos en $n$ ensayos.\\	
+		$n:=$ número de ensayos. \\
+		$p:=$ proba. de éxito. \\
+		$q:=(1-p):=$ proba de fracaso.	
+	\end{tabular}
+\\ \hline 
+
+%GEOM
+	\begin{tabular}{@{}l@{}}
+		\textbf{Geométrica} \\
+		$X \sim  \Geo(p)$
+	\end{tabular}&
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{@{}c@{}}
+		$f(x)=q^xp $ \\
+		$ x =0,1,2...; \quad 0 \leq p \leq 1$\\
+		Puede ser $q^{y-1}; \quad y=1,2...$
+	\end{tabular}&
+	$\dfrac{1}{p}$&
+	$\dfrac{1-p}{p^2}$&
+	$\dfrac{pe^t}{1-qe^t}$ &
+	&
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{m{7cm}}
+		Número de ensayos en el que ocurre el primer éxito. \\
+		$p:=$ proba. de éxito. \\
+		$q:=(1-p):= $ proba de fracaso. 
+	\end{tabular}
+\\\hline
+
+%POISS
+	\begin{tabular}{@{}l@{}}
+		\textbf{Poisson} \\
+		 $X \sim$ $\Po(\lambda)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}} 
+		$f(x)= \dfrac{\lambda^x e^{-\lambda}}{x!}$ \\
+		$x=0,1,2,... ; \quad \lambda > 0 $
+	\end{tabular}& 
+	$\lambda$&
+	$\lambda$&
+	$e^{\lambda(e^t-1)}$&
+	&
+	\renewcommand{\arraystretch}{1.7}
+	\begin{tabular}{m{7cm}}
+		Número de eventos que ocurren en un intervalo de tiempo (región) con un promedio 			conocido. Binomial con $n$ grande. $\lambda = np:=$ promedio 	conocido.
+	\end{tabular}
+\\ \hline
+
+% BINOM NEGATIVA
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{@{}c@{}}
+		\textbf{Binomial}\\
+		\textbf{Negativa}\\
+		$X \sim \BN(r)$
+	\end{tabular} &
+	\begin{tabular}{@{}c@{}}
+		$f(x)= \dbinom{x-1}{r-1}p^rq^{x-r}$ \\
+		$ x =r,r+1,... $
+	\end{tabular} &
+	$\dfrac{r}{p}$&
+	$\dfrac{rq}{p^2}$&
+	$\left(\dfrac{p}{1-qe^t}\right)^r$&
+	\renewcommand{\arraystretch}{1.7}
+	\begin{tabular}{@{}c@{}}
+		$\dfrac{r}{p}\E[(Y-1)^{a-1}]$ \\
+		$Y$ v.a. binomial negativa \\
+		con parámetros r+1,p\\
+	\end{tabular} &
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{m{7cm}}
+	Número de evento en el que ocurre el \, \, r-ésimo éxito.\\ 
+	$r:=$ r-ésimo éxito.\\
+	\end{tabular}
+
+	\end{tabular}	
+\end{landscape}
+
+%CONTINUAS
+\begin{landscape}
+{\LARGE\textbf{Distribuciones Continuas}}\\
+\\
+\renewcommand{\arraystretch}{2.1}
+\begin{tabular}{l|c|c|c|c|c| m{7cm}}
+	\textbf{Distribución} &
+	Función de Densidad &
+	\renewcommand{\arraystretch}{1.1}
+	\begin{tabular}{@{}c@{}}
+		Media \\
+		$\E[X]=\mu$
+	\end{tabular} &
+	\renewcommand{\arraystretch}{1.1} 
+	\begin{tabular}{@{}c@{}}
+		Varianza \\
+		$V[X]=\sigma^2$
+	\end{tabular} &
+	\renewcommand{\arraystretch}{1.1}
+	\begin{tabular}{@{}c@{}}
+		Función Generadora \\
+		de Momento
+	\end{tabular}& 
+	$\E[X^a]$ & 
+	Notas/Uso 
+\\ \hline
+
+%UNIFORME
+	\renewcommand{\arraystretch}{1.9}
+	\begin{tabular}{@{}l@{}}
+	\textbf{Uniforme} \\
+	$X \sim \U(a,b)$	
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+	$f(x)=\dfrac{1}{b-a}$\\
+	$a \leq y \leq b$
+	\end{tabular} &
+	$\dfrac{a+b}{2}$ & 
+	$\dfrac{(b-a)^2}{12}$ &
+	$\dfrac{e^{tb}-e^{ta}}{t(b-a)}$ &	
+	\begin{tabular}{@{}c@{}} 
+	\end{tabular}& 
+	Poisson en un intervalo $[a,b]$ en el que sólo pasa 1 evento. 			Misma probabilidad en 		cada punto del intervalo
+	\\ \hline
+
+%NORMAL
+	\begin{tabular}{@{}l@{}}
+		\textbf{Normal} \\
+		$X \sim \N(\mu,\sigma)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\dfrac{\left( 					x-\mu\right)^2}{2\sigma^2}}$
+	\end{tabular} &
+	$\mu$ & 
+	$\sigma^2$ &
+	$e^{\mu t + (t^2\sigma^2)/2}$ &
+	$
+	\begin{cases} 
+		0 & \text{si } a \text{ es par}\\
+		\sigma^a(a-1)!! & \text{O.C.}			
+	\end{cases}$ & 
+	Muchos éxitos idénticos e independientes. Se busca 						estandarizar la función usando: $Z=\N(0,1)=\frac{Y-\mu}{\sigma}.$\\ 
+	\hline
+	
+%GAMMA
+	\begin{tabular}{@{}l@{}}
+		\textbf{Gamma} \\
+		 $X \sim \Gamma(\alpha,\beta)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)=\dfrac{\beta^\alpha}{\Gamma(\alpha)}								x^{\alpha-1}e^{-x\beta}$\\
+		$ 0 < x < \infty $
+	\end{tabular} &
+	$\alpha/\beta$ & 
+	$\alpha/\beta^2$ &
+	$(1-\beta t)^{-\alpha}$ &
+	\begin{tabular}{@{}c@{}}
+		$\E(Y^a)=\dfrac{\beta^\alpha\Gamma(\alpha+a)}{\Gamma(\alpha)}$
+	\end{tabular}&
+	\renewcommand{\arraystretch}{1.2} 
+	\begin{tabular}{@{}l@{}}
+		Tiempos. $\alpha>0$ y $\beta>0$.\\
+		Prop. $\int^{\infty}_{0}y^{\alpha-1}e^{-y/\beta}dy=\beta^				\alpha\Gamma(\alpha)$\\
+		Propiedades de Gamma: $\Gamma(1)=1$\\ 
+		$\Gamma(\alpha)=(\alpha-1)\Gamma(\alpha-1)$\\
+		$\Gamma(n)=(n-1)!$ si $(n-1) \in \mathbb{Z}$
+	\end{tabular}\\
+	\hline
+	
+%EXPONENCIAL
+	\renewcommand{\arraystretch}{2} 
+	\begin{tabular}{@{}l@{}}
+		\textbf{Exponencial} \\
+ 		$X \sim \Exp(\beta)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)=\beta e^{-x\beta}$\\
+		$ 0 < x < \infty $
+	\end{tabular} &
+	$1/\beta$ & 
+	$1/\beta^2$ &
+	$(1-\beta t)^{-1}$ &
+	\begin{tabular}{@{}c@{}}
+		Misma que Gamma. 
+	\end{tabular}&
+	\renewcommand{\arraystretch}{1.2} 
+	\begin{tabular}{@{}m{6cm}}
+		Parametro de intensidad $\beta$\\
+		Parametro de media $\lambda = 1/\beta$\\
+		Caso especial de la Gamma cuando $\alpha=1$.\\
+		Geométrica en caso continuo.\\ 
+		Propiedad de falta de memoria: Sean $a,b>0 \Rightarrow $\\
+		$ P(Y>a+b|Y>a)=P(Y>b) $\\ 
+	\end{tabular}\\
+	\hline
+
+%JI-CUADRADA
+	\renewcommand{\arraystretch}{2}
+	\begin{tabular}{@{}l@{}}
+		\textbf{Ji-Cuadrada} \\
+		$X \sim \chi^2(v)$
+	\end{tabular} & 
+	\begin{tabular}{@{}c@{}}
+		$f(x)=\dfrac{x^{(v/2)-1}e^{-x/2}}{2^{v/2}\Gamma(v/2)}$\\
+		$ 0 < x < \infty $
+	\end{tabular} &
+	$v$ & 
+	$2v$ &
+	$(1-2t)^{-v/2}$ &
+	\begin{tabular}{@{}c@{}}
+		Misma que Gamma. 
+	\end{tabular}& 
+	\renewcommand{\arraystretch}{1.2} 
+	\begin{tabular}{@{}m{6cm}}
+	Caso especial de la Gamma \\
+	cuando $\alpha=v/2;$ $\beta=2;$\\
+	$v:=$ grados de libertad
+	\end{tabular} \\
+	\hline
+
+%BETA
+	\renewcommand{\arraystretch}{2} 
+	\begin{tabular}{@{}l@{}}
+		\textbf{Beta} \\
+		$X \sim \Beta(\alpha,\beta)$
+	\end{tabular} &
+	\begin{tabular}{@{}c@{}}
+		$f(x)=\dfrac{x^{\alpha-1}(1-x)^{\beta-1}}						{\beta(\alpha,		\beta)}$\\
+		$0 \leq x \leq 1$
+	\end{tabular} &
+	$\dfrac{\alpha}{\alpha+\beta}$ & 
+	$\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$ &
+	No existe & 
+	& 
+	\renewcommand{\arraystretch}{1.2} 
+	\begin{tabular}{@{}m{6cm}}
+		Proporciones y Porcentajes\\
+		$\alpha,\beta > 0$. Si $\alpha,\beta \in \mathbb{Z}$ se 				relaciona con la binomial donde $n=\alpha+\beta-1$ y el 				contador comienza en $\alpha$.\\
+		$\beta(\alpha,\beta)=\dfrac{\Gamma(\alpha)\Gamma(\beta)}				{\Gamma(\alpha+\beta)} $ 
+	\end{tabular}\\
+\end{tabular}
+\end{landscape}
+\end{document}

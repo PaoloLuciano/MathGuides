@@ -1,0 +1,132 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=.1cm,top=.5cm,right=.2cm,bottom=.1cm]{geometry} %Formato
+\usepackage[spanish]{babel} %Para escribir en español
+\decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+\usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+\usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+
+\begin{document}
+
+\title{Pivotes Estadisticos}
+\author{Gianpaolo Luciano Rivera}
+\date{2015}
+\maketitle
+
+%\hyphenation{Varianza Varianzas conocidas conocida desconocidas desconocida medias}
+
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{m{3.5cm} m{7.3cm} m{6.5cm}}
+\textbf{Estadísitico} & \textbf{Pivote} & \textbf{Supuestos}\\ 
+\hline 
+\hline 
+
+Media con Varianza conocida & 
+$$\dfrac{\overline{X} - \mu}{\sqrt{\dfrac{\sigma^2}{n}}} \sim \text{N}(0,1)$$  & 
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid
+\item[-] n suficientemente grande 
+\end{itemize}\\ 
+\hline 
+
+Media con Varianza desconocida & 
+$$\dfrac{\overline{X} - \mu}{\sqrt{\dfrac{S^2}{n}}} \sim \text{T}_{\left(n-1\right)}$$ &  
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\end{itemize}\\ 
+\hline 
+ 
+Proporción de muestra chica & 
+$$\sum^{n}_{i = 1}X_i \sim \text{Bi}(n,p)$$ & 
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid
+\end{itemize}\\ 
+\hline
+
+Proporción de muestra grande & 
+$$\dfrac{\hat{p}-p}{\sqrt{\dfrac{p\left(1-p\right)}{n}}}\sim \text{N}(0,1)$$ & 
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid
+\item[-] n suficientemente grande 
+\end{itemize}\\ 
+\hline
+
+Varianza & 
+$$\dfrac{\left(n-1\right)S^2}{\sigma^2} \sim \chi^2_{\left(n-1\right)}$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\end{itemize}\\ 
+\hline
+
+Cociente de Varianzas & 
+$$\dfrac{S^2_x}{S^2_y}\dfrac{\sigma^2_y}{\sigma^2_x} \sim \text{F}_{\left(n-1,m-1\right)}$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\end{itemize}\\ 
+\hline
+
+
+Diferencia de medias con Varianzas conocidas & 
+$$\dfrac{\overline{X}-\overline{Y}-\left(\mu_x - \mu_y\right)}{\sqrt{\frac{\sigma^2_x}{n}+\frac{\sigma^2_y}{m}}} \sim \text{N}(0,1)$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid 
+\item[-] $Y_1,\ldots, Y_m$ V.A. iid 
+\item[-] $X_i,\ Y_j$ independientes
+\item[-] n, m suficientemente grandes
+\end{itemize}\\ 
+\hline
+
+Diferencia de medias con Varianzas desconocidas & 
+$$\dfrac{\overline{X}-\overline{Y}-\left(\mu_x - \mu_y\right)}{\sqrt{\dfrac{\left(n-1\right)S^2_x + \left(m-1\right)S^2_y}{n+m-2}\left(\dfrac{1}{n} + \dfrac{1}{m}\right)}} \sim \text{T}_{\left(n+m-2\right)}$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\item[-] $Y_1,\ldots, Y_m$ V.A. iid Normales
+\item[-] $X_i,\ Y_j$ independientes
+\item[-] Varianzas iguales
+\end{itemize}\\ 
+\hline
+
+
+Diferencia de proporciones & 
+$$\dfrac{\hat{p}_x - \hat{p}_y - \left(p_x - p_y\right)}{\sqrt{\dfrac{\hat{p}_x\left(1-\hat{p}_x\right)}{n} + \dfrac{\hat{p}_y\left(1-\hat{p}_y\right)}{m}}}  \sim \text{N}(0,1)$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid 
+\item[-] $Y_1,\ldots, Y_m$ V.A. iid 
+\item[-] $X_i,\ Y_j$ independientes
+\item[-] n, m suficientemente grandes
+\end{itemize}\\ 
+
+
+\end{tabular} 
+
+%PÁGINA 2
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{m{3.5cm} m{7.3cm} m{6.5cm}}
+\textbf{Estadísitico} & \textbf{Pivote} & \textbf{Supuestos}\\ 
+\hline 
+\hline 
+
+Diferencia de medias con muestras pareadas & 
+$$\dfrac{\overline{D} - \mu}{\sqrt{\dfrac{S^2_D}{n}}} \sim \text{T}_{\left(n-1\right)}$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\item[-] $Y_1,\ldots, Y_n$ V.A. iid Normales
+\end{itemize}\\ 
+\hline
+
+Correlación& 
+$$\dfrac{\hat{p}\sqrt{\left(n-2\right)}}{\sqrt{1-\hat{p}^2}} \sim \text{T}_{\left(n-2\right)}$$ &
+\begin{itemize}
+\item[-] $X_1,\ldots, X_n$ V.A. iid Normales
+\item[-] $Y_1,\ldots, Y_n$ V.A. iid Normales
+\end{itemize}\\ 
+
+\end{tabular} 
+\end{document}

@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Conceptos Generales}{}% 1
+\BOOKMARK [1][-]{section.2}{Inferencia Estadistica}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Familias Exponenciales}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Regularidad y Propiedades Anal\355ticas}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Verosimilitud y M\341xima Verosimilitud}{subsection.2.1}% 5
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Parametrizaciones alternativas}{subsection.2.1}% 6
+\BOOKMARK [3][-]{subsubsection.2.1.4}{Completitud y Teorema de Basu}{subsection.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Propiedades Asintoticas del MLE}{section.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Asintotas para muestras grandes}{subsection.2.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Aproximaciones de Punto-Silla}{subsection.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Pruebas para reducir modelos}{section.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Pruebas Asintoticamente equivalentes}{subsection.2.3}% 12
+\BOOKMARK [1][-]{section.3}{Notas adicionales}{}% 13

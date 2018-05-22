@@ -1,0 +1,146 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=2cm,top=1cm,right=2cm,bottom=2cm]{geometry} %Formato
+\usepackage[spanish]{babel} %Para escribir en español
+\decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+\usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+\usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+\usepackage{multicol}  % Latex a Dos Columnas
+\usepackage{float} % Poner mejor las imágenes.
+
+\setlength\parindent{0pt} % Quitar las sangías
+% \setlength{\intextsep}{1pt plus 1pt minus 1pt} % Pámetro de texto entre figura e imágen.
+
+\title{Formulario Cálculo I}
+\author{Gianpaolo Luciano Rivera}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Números Reales $\mathbb{R}$}
+Los números reales pueden ser representados en una recta infinita hacia ambos lados. Algunos teoremas.
+\begin{itemize}
+	\item Los reales $\mathbb{R}$ son densos (al igual que los racionales $\mathbb{Q}$ y los irracionales $\mathbb{Q}'$)
+	\item \textbf{Axioma de Arquímedes}: No existe número más grande y siempre hay un natural mayor. $\forall x \in \mathbb{R}, \exists n \in \mathbb{N} $ tal que: $x < n$.  Por lo tanto tenemos la siguiente consecuencia.
+	\item \textbf{Propiedad de Arquímedes}: Siempre hay un número entre cero y tu número $0<z \Rightarrow \exists n \in \mathbb{N}$ tal que: $0 < 1/n < z$
+\end{itemize}
+
+\textbf{Valor Absoluto}: $|x-y|$, es la distancia entre $x$ y $y$ en la recta numérica, sin importar que estos sean positivos o negativos. Cuando solo tenemos un número adentro $|x|$ este se refiere a la distancia de ese número contra el cero. 
+
+$$|x| = \begin{cases} -x &\text{si } x < 0 \\ x &\text{si } x \geq  0\end{cases}$$
+
+Propiedades: 
+\begin{itemize}
+
+	\item $|a| \geq 0 \quad \forall a \in \mathbb{R}$
+	\item $|-a| = |a|$
+	\item $|a|^2 = a^2$
+	\item $|ab| = |ab|$
+	\item $\left|\dfrac{a}{b}\right| = \dfrac{|a|}{|b|}$ 
+	\item Desigualdad del Triangulo: $|a+b|\leq |a| + |b|$
+	\item $|a-b|\leq |a| - |b|$	
+	\item Si $|a| \leq \delta \Rightarrow -\delta \leq a \leq \delta$
+	\item Si $|a| \geq \delta \Rightarrow a \leq - \delta$, ó, $a \geq \delta$ 
+\end{itemize}
+
+\section{Funciones}
+Una función es una \textit{regla} que relaciona todos los elementos de tu \textit{dominio} (de forma única) contra los elementos de un \textit{contradominio}. A los elementos a los que si tocamos en el contradominio se le llama \textit{rango}. Las funciones se pueden sumar, restar, multiplicar y dividir. Propiedades:
+
+\begin{itemize}
+	\item \textbf{Paridad}: f(x) = f(-x)
+	\item \textbf{Imparidad}: f(-x) = -f(x)
+	\item \textbf{Inyectividad}: $\forall a,b \in \text{Dom}_f$, si $f(a) = f(b) \Rightarrow a = b$
+	\item \textbf{Suprayectividad}: $\text{Rango}_f = \text{CD}_f$
+	\item $(f\pm g)(x) = f(x) \pm g(x) \quad \text{Dom}_{f+g} = \text{Dom}_f \ \cap \text{Dom}_g$ 
+	\item $(fg)(x) = f(x)g(x) \quad \text{Dom}_{fg} = \text{Dom}_f \cap \text{Dom}_g$
+	\item $(f/g)(x) = f(x)/g(x) \quad \text{Dom}_{f/g} = \text{Dom}_f \cap \text{Dom}_g - \{x|g(x) = 0\}$
+	\item $(g\circ f)(x) = g(f(x)) \quad \text{Dom}_{g\circ f} = \{x|x\in \text{Dom}_f \text{ y } f(x) \in \text{Dom}_g\}$
+\end{itemize}
+
+\section{Límites y Continuidad}
+El límite cuando $x$ tiende a $x_0$, $\lim_{x\rightarrow x_0}f(x)$ es ver que comportamiento tiene una función cuando nos acercamos lo suficiente  a cierto punto. Definiciones y propiedades: 
+\begin{itemize}
+	\item \textbf{Definición Formal de Límite} Si $\forall \epsilon > 0,\; \exists \delta = \delta(\epsilon) > 0$ tal que, si $0< |x - x_0| < \delta$ con $x\in \text{Dom}_f \; \Rightarrow |f(x) - l| < \epsilon$, entonces $\lim_{x \rightarrow x_0}f(x) = l$
+	\item $\lim_{x\rightarrow x_0}f(x)$ existe $\iff$ los dos límites laterales exiten y son iguales $\lim_{x\rightarrow x_0^{+}}f(x) = \lim_{x\rightarrow x_0^{-}}f(x)$
+	\item \textbf{Continuidad}: Sea $f$ una función definida en algún intervalo abierto $(a,b)$ que contiene a $x_0$, decimos que $f(x)$ es \textit{continua} $\iff$  $\lim_{x\rightarrow x_0^{+}}f(x) = f(x_0) =  \lim_{x\rightarrow x_0^{-}}f(x)$. Es decir, el límite por ambos lados existe y es lo mismo que evaluar la función en ese punto.
+	\item Si $\lim_{x\rightarrow x_0}f(x)$ existe y $\lim_{x\rightarrow x_0}g(x)$, entonces:
+	\begin{itemize}
+		\item El límite de la suma/resta existe y es igual a la suma/resta de estos. $\lim_{x\rightarrow x_0}(f(x)\pm g(x)) = \lim_{x\rightarrow x_0}f(x) \pm \lim_{x\rightarrow x_0}g(x)$
+		\item El límite de la multiplicación existe y es igual a la multiplicación de estos. $\lim_{x\rightarrow x_0}(f(x)g(x)) = \lim_{x\rightarrow x_0}f(x)*\lim_{x\rightarrow x_0}g(x)$
+		\item Si además $\lim_{x\rightarrow x_0}g(x)\neq 0$ entonces, el límite de la división existe y es igual a la división de los límites. $\lim_{x\rightarrow x_0}(f(x)/g(x)) = \lim_{x\rightarrow x_0}f(x)/\lim_{x\rightarrow x_0}g(x)$
+	\end{itemize}
+	\item Si límite de $f(x)$ es un número no negativo, ie: $[0,\infty)$ y $n$ es par positivo (2,4,6,$\ldots$), entonces: $\lim{x\rightarrow x_0} \sqrt[n]{f(x)} = \sqrt[n]{\lim{x\rightarrow x_0}f(x)}$
+	\item Si límite de $f(x)$ existe y $n$ es impar positivo (3,5,7,$\ldots$), entonces: $\lim{x\rightarrow x_0} \sqrt[n]{f(x)} = \sqrt[n]{\lim{x\rightarrow x_0}f(x)}$
+	\item Si $g$ es una función \textit{continua} y el límite de $f(x)$ existe y pertenece al dominio de $g$, entonces, $\lim{x\rightarrow x_0}g(f(x)) = g(\lim{x\rightarrow x_0}f(x))$
+	
+Algunos teoremas que se demuestran sobre continuidad:
+
+\begin{itemize}
+	\item La suma/resta de funciones continuas es continua.
+	\item La multiplicación de continuas es continua.
+	\item Si $f$ y $g$ son continuas en $x_0$ y $g(x) \neq 0$ entonces, $f/g$ es continua.
+	\item Toda función polinomial es continua en cada real.
+	\item Toda función racional es una función continua excepto en los números que sean raices del denominador.
+	\item Sea $f$ continua en $x_0$ y que $g$ continua en $f(x_0)$, entonces $g\circ f$ es continua en $x_0$. 
+\end{itemize}
+
+\textbf{Teorema del Sandwich} Supongamos que $f,g,h$ son funciones definidas en alguna vecindad de $x_0$ (pero no necesariamente en $x_0$. Si $f(x)\leq g(x) \leq h(x)$ para toda $x$ en dada vecindad y $lim_{x\rightarrow x_0}f(x) = lim_{x\rightarrow x_0}h(x) = l$, entonces el límite de $g$ existe y es el mismo $lim_{x\rightarrow x_0}g(x) = l$. El resultado más imporante del TS. es el siguiente límite trigonometrico:
+
+$$\lim_{x \rightarrow 0} \dfrac{sin(x)}{x} = 1$$
+
+\textbf{Teorema de Bolsano o Teorema del Valor Intermedio}: Sea $f:[a,b]\rightarrow \mathbb{R}$ continua. Supongamos que $f(a)<0$ y $f(b) > 0$ (o viceversa), entonces: $\exists \,c \in (a,b)$ tal que, $f(c) = 0$. Es decir, si tu función es continua y en algún punto va por arriba del eje $x$ pero en otro punto va por abajo, entonces lo debe de cruzar en algún punto. Nota: puede cruzar en más de un punto en ese intervalo.
+Sirve para encontrar cruces entre funciones definiendo $h = f-g$ y encontrando sus raices o para encontrar \textbf{puntos fijos}. Un punto fijo es tal que $f(c) = c$.
+\end{itemize}
+
+\section{Derivadas}
+\textbf{Definición Formal de Derivada}: Sea $f:(a,b)\rightarrow\mathbb{R}$ una función y sea $x_0 \in (a,b)$. Decimos que $f$ es \textit{diferenciable} si el siguiente límite existe. $$f'(x_0) = \dfrac{df}{dx} = \lim_{h\rightarrow 0} \dfrac{f(x+h) - f(x)}{h}$$ Una definición alternativa es: $\lim_{x\rightarrow_0}\dfrac{f(x) - f(x_0)}{x-x_0}$. Y en caso de que exista, $f'(x_0)$ es la pendiente de la recta tangente a la función $f$ en $x_0$. Algunos teoremas y propiedades.
+
+\begin{itemize}
+    \item Diferenciabilidad $\Rightarrow$ Continuidad.
+    \item $f(x) = x^n \Rightarrow f'(x) = nx^{n-1}$ para $n\in \mathbb{R}$. Caso particular $n = 1$, $f(x) = x \Rightarrow f'(x) = 1$.
+    \item $f,g$ diferenciables en $x_0$ y $(f\pm g)'(x_0) = f'(x_0) \pm g'(x_0)$
+    \item Sea $k \in \mathbb{R}$ una constante. Si $kf(x)$ diferenciables en $x_0$ entonces $(kf)'(x_0) = kf'(x_0)$. Caso particular $k' = 0$
+    \item \textbf{Regla de la multiplicación}: $fg$ diferenciable en $x_0$ entonces $(fg)'(x_0) = f'(x_0)g(x_0) + f(x_0)g'(x_0)$
+    \item \textbf{Regla del Cociente}: Sea $g(x_0) \neq 0 $. Entonces $f/g$ es dif. en $x_0$ y $(f/g)(x_0) = \frac{f'(x_0)g(x_0) - f(x_0)g'(x_0)}{g^2(x_0)}$
+    \item \textbf{Regla de la Cadena}. Si $f$ es diferenciables en $x_0$ y $g$ es diferenciables en $f(x_0)$ entonces, $g\circ f$ es diferenciable en $x_0$. $(g\circ f)'(x_0) = g'(f(x_0))f'(x_0)$
+    \item \textbf{Derivadas Trigonometricas} $sin'(x) = cos(x)$ y $cos'(x) = -sin(x)$ para toda $x\in \mathbb{R}$
+    \item \textbf{Teorema de Lagrange o Teorema del valor Medio}: Sea $f:[a,b]\rightarrow \mathbb{R}$ una función continua en $[a,b]$ y diferenciable en $(a,b)$,  entonces existe una $c \in (a,b)$ tal que $$f'(c) = \dfrac{f(b) - f(a)}{b-a}$$.
+    \item \textbf{Teorema de Rolle}: (Versión particular del TVM). Sea $f:[a,b]\rightarrow \mathbb{R}$ una función continua en $[a,b]$ y diferenciable en $(a,b)$. Si $f(a) = f(b)$, entonces existe una $c \in (a,b)$ tal que $f'(c) = 0$.
+    \item \textbf{Funciones Monótonas} Sea $f:[a,b]\rightarrow \mathbb{R}$ una función continua en $[a,b]$ y diferenciable en $(a,b)$. Si $f'(c) > 0 \; \quad \forall c\in (a,b)$, nuestra función es estrictamente creciente en este intervalo. Si por el contrario, $f'(c) < 0$ para el mismo intervalo la función es estrictamente decreciente. Si tenemos que $f'(c)\geq 0$ es decir, con posible igualdad, entonces tenemos que es solamente creciente (ya no es estricto).
+    \item \textbf{Teorema del Valor Extremo} Sea $f:\mathbb{R}\rightarrow \mathbb{R} $continua en el intervalo cerrado y acotado $[a,b]$, entonces, $f$ adquiere un máximo y un mínimo global en ese intervalo al menos una vez.
+    \item \textbf{Máximos y Mínimos locales} Sea $x_0$ un punto tal que $f'(x_0) = 0$ decimos que $x_0$ es un \textit{punto crítico}. Si además, $f''(x_0)<0$ entonces es un mínimo local, por el contrario si $f''(x_0) > 0$ entonces es máximo local. Si $f''(x_0) = 0$ el criterio no es concluyente.
+    \item \textbf{Puntos de Inflexión y concavidad} Sea $x_0$ un punto tal que $f''(x_0) = 0$ decimos que $x_0$ es un \textit{punto de inflexión}, es decir, donde cambia la concavidad (curvatura) $f$. Para los puntos donde $f''(x)$ sea positiva decimos que una función es \textit{convexa} en ese intervalo. Por el contrario, si $f''(x) < 0$ decimos que es \textit{concava}
+    \item \textbf{Asintotas Oblicuas} Existen en funciones del tipo $$f(x) = \dfrac{p(x)}{q(x)}$$ donde $p(x)$ y $q(x)$ son polinomios tales que, el grado de $p$ sea 1 mas que el grado de $q$ ie $g(p) = g(q) + 1$. Y se encuentran haciendo la división algebráica de los polinomios y posteriormente dejando $p(x) = q(x)Q(x) + r(x)$ entonces: $f(x) = Q(x) + r(x)/q(x)$. Donde nuestra A.O. será $Q(x)$ pues $r(x)/q(x)$ tiende a cero si $x$ tiende a mas o menos infinito.
+    \item \textbf{Linealización} $f(x) \approx f(x_0) + f'(x_0)(x-x_0)$ para una vecindad de $x_0$.
+\end{itemize}
+
+\section{Integrales}
+\textbf{Integral Indefinida o definición formal de Primitiva o Antiderivada}: Sea $f:[a,b]\rightarrow\mathbb{R}$ una función, decimos que $F:[a,b]\rightarrow\mathbb{R}$ es una primitiva o antiderivada de $f$ si $F$ es diferenciable en $[a,b]$ y cumple que $F' = f$ en todo el intervalo. Sin embargo, notemos que si $F$ es antiderivada, también lo es $F + c$ con $c$ cualquier constante. Usualmente la denotamos $F(x) = \int f(x) \, dx$. Las reglas de antiderivación son:
+\begin{itemize}
+    \item $\int(f(x)\pm g(x))dx = \int f(x) dx \pm \int g(x) dx$
+    \item $\int kf(x)dx = k\int f(x) dx$
+    \item $\int x^k dx = \frac{x^{k+1}}{k+1}$ para $x\in\mathbb{R}$
+    \item $\int u dv = dv - \int v dv$
+\end{itemize}
+
+\textbf{Integral definida o vista como función de area bajo la curva}: Sea $f:[a,b]\rightarrow \mathbb{R}$ una función continua y no negativa. Sea $x\in (a,b]$. Denotamos por $A(x) = \int_a^xf(x)\, dx$ es el area bajo la gráfica de $f$ entre $a$ y $x$. Propiedades:
+
+\begin{itemize}
+    \item $A(a) = 0$ es decir: $\int_a^af(x) dx = 0$. 
+    \item Si $c \in (a,b)$ entonces $\int_a^bf(x) dx = \int_a^cf(x) dx + \int_c^bf(x) dx$
+    \item Si $m \leq f(x) \leq M \quad \forall x in [a,b]$ con $m, M$ constantes, entonces $m(b-a) \leq \int_a^bf(x)dx\leq M(b-a)$
+    \item \textbf{Teorema del valor medio para integales}. Sea $f$ continua en $[a,b]$ entonce existe una $c\in [a,b]$ tal que $\int_a^bf(x)dx = f(c)(b-a)$
+    \item \textbf{Teorema Fundamental del Cálculo Versión 1}: Sea $f:[a,b]\rightarrow\mathbb{R}$ una función continua, no negativa y sea $A:[a,b]\rightarrow\mathbb{R}$ la función de area definida: 
+    $$A(x) = \begin{cases}0 & x= a\\ \int_a^x f(t)dt & \text{en otro caso} \end{cases}$$
+    Entonces, $A$ es diferenciable en $[a,b]$ y $A'(x) = f(x)$ para toda $x$ en el intervalo.
+    \item \textbf{Teorema Fundamental del Cálculo Versión 2}: Sea $f:[a,b]\rightarrow\mathbb{R}$ una función continua, no negativa y sea $F$ cualquier antiderivada de $f$. Entonces $\int_a^bf(x)dx = F(x)|_a^b = F(b) - F(a)$
+\end{itemize}
+\end{document}

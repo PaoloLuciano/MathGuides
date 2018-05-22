@@ -1,0 +1,135 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=2cm,top=1cm,right=2cm,bottom=2cm]{geometry} %Formato
+\usepackage[spanish]{babel} %Para escribir en español
+\decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+\usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+\usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+\usepackage{multicol}  % Latex a Dos Columnas
+\usepackage{float} % Poner mejor las imágenes.
+
+\setlength\parindent{0pt} % Quitar las sangías
+% \setlength{\intextsep}{1pt plus 1pt minus 1pt} % Pámetro de texto entre figura e imágen.
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Po}{Po}
+\DeclareMathOperator{\Bi}{Bi}
+\DeclareMathOperator{\Be}{Be}
+\DeclareMathOperator{\Geo}{Geo}
+\DeclareMathOperator{\BN}{BN}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Beta}{B}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\probit}{probit}
+\DeclareMathOperator{\Cov}{Cov}
+
+\title{Probabilidad}
+\author{Gianpaolo Luciano Rivera 135491}
+\date{2016}
+
+\begin{document}
+\maketitle
+
+\section{Principios de Probabilidad}
+\subsection{Axiomas}
+\subsection{Probabilidad Total y Bayes}
+	\begin{itemize}
+		\item \textbf{Probabilidad Total}: Si tenemos una partición sobre el espacio muestral $A_1,\ldots ,A_n$ y sea $B$ un evento cualquiera entonces:$$P(B) = \sum_{i=1}^nP(B|A_i)P(A)$$. En palabras, significa puedo ponderar mi evento $B$ siempre la ocurrencia de mis particiones.
+		\item \textbf{Teorema de Bayes}: $$P(B|A_i) = \dfrac{P(B|A_i)P(A_i)}{\sum_{i=1}^nP(B|A_i)P(A)}$$
+		Usado en un contexto de \emph{Estadistica Bayesiana} nuestras probabilidades se convierten en funciones: $$f(\theta|\underline{X}) = \dfrac{f(\underline{X}|\theta))f(\theta)}{\int_\Theta f(\underline{X}|\tilde{\theta}))f(\tilde{\theta})\,d\tilde{\theta}}$$
+	\end{itemize}
+	
+\section{Esperanza}
+\subsection{Propiedades}
+\begin{itemize}
+	\item $\E[a] = a$
+	\item $\E[aX+b] = a\E[X]+b$
+	\item Si $X$ y $Y$ son v.a. independientes $\Rightarrow \E[XY]=\E[X]\E[Y] $ 
+	\item $\E[\sum_i X_i] = \sum_i E[X_i] $
+	\item $\E[X] = \E[\E[X|Y]]$
+\end{itemize}
+
+
+\section{Varianza}
+\subsection{Propiedades}
+\begin{itemize}
+	\item $\Var[X]\geq0$
+	\item $\Var[aX+b]=a^2\Var[X]$ 
+	\item $\Var[\sum_i X_i] = \sum_i\sum_j \Cov[X_i,X_j] = \sum_i \Var[X_i]  + 2\sum_{i,j\; i \neq j}\Cov[X_i,X_j]$
+	\item $\Var[X] = E[\Var[X|Y]]+\Var[E[X|Y]]$
+	\item Si $X$ y $Y$ son v.a. independientes $\Rightarrow \Var[XY] = \E[X]^2\Var[Y] + \E[Y]^2\Var[X]+ \Var[X]\Var[Y]$
+\end{itemize}
+
+\section{Covarianza}
+\subsection{Propiedades}
+\begin{itemize}
+	\item $\Cov[X,X] = \Var[X]$
+	\item $\Cov[X,Y] = \E[XY] - E[X]E[Y]$
+	\item Si $X$ y $Y$ son v.a. independientes $\Rightarrow \Cov[X,Y]  =0 $ 
+\end{itemize}
+
+\section{Probabilidad Condicional}
+	\begin{itemize}
+		\item \textbf{Densidad Condicional}: $$f_{Y|X}(y) = \dfrac{f_{X,Y}(x,y)}{f_X(x)}$$
+	\end{itemize}
+	
+\section{Transformaciones y relaciones entre V.A.}
+\subsection{Variables Aleatorias Discretas}
+\subsection{Bernoulli}
+\begin{itemize}
+	\item $X_i \sim \Be(p) \Rightarrow Y = \sum_i^nX_i \sim \Bi(n,p)$
+\end{itemize}
+
+\subsection{Binomial}
+\begin{itemize}
+	 \item $X\sim \Bi(n,p)$ y $Y \sim \Bi(m,p)$ independientes $\Rightarrow X+Y \sim \Bi(n+m,p)$
+\end{itemize}
+
+\subsubsection{Poisson}
+\begin{itemize}
+	\item Sean $X_i \sim \Po(\lambda_i)$ independientes $\Rightarrow \; Z = \sum_i^n \sim \Po(\sum_i \lambda_i)$ 
+	\item Si $X_1 \sim \Po(\lambda_1)$ y $X_2 \sim \Po(\lambda_2)$. Dado $X_1 + X_2 = k \Rightarrow X_1 \sim \Bi(k, \lambda_1/(\lambda_1 + \lambda_2))$
+\end{itemize}
+\subsection{Variables Aleatorias continuas}
+\subsubsection{Uniforme}
+	\begin{itemize}
+		\item $X \sim \U(0,1) \iff Y = a + (b-a)X \sim(a,b)$
+		\item La parte fraccionaria de la suma de $n$ uniformes $(0,1)$ independientes, también es uniforme $(0,1)$.
+	\end{itemize}
+\subsubsection{Distribución Exponencial}
+	\begin{itemize}
+		\item Sea $X$ distribuida exponencial con \emph{parámetro de media} $\lambda$. Entonces su densidad es: $f(x) = \frac{1}{\lambda}e^{-\frac{x}{\lambda}}$ con valor esperado $\E[X] = \lambda$
+		\item Sea $X$ distribuida exponencial con \emph{parámetro de intensidad} $\lambda$. Entonces su densidad es: $f(x) = \lambda e^{-\lambda x}$ con valor esperado $\E[X] = \frac{1}{\lambda}$
+		\item Sea $X \sim \Exp(\lambda) \Rightarrow Y = \sum_{i = 1}^n \sim \Gamma(n,\lambda)$
+	\end{itemize}
+	
+\section{Teoremas de Convergencia}
+\subsection{Ley de los grandes números}
+\begin{itemize}
+	\item \textbf{Ley débil}: Sea ${X_i} \quad i = 1,\ldots$ una secuencia de variables aleatorias \emph{independientes} tal que: $\E[X_i] = \mu$ y $\Var[X_i] = \sigma^2$ para toda $i$. Entonces el promedio $\bar{X}_n = (X_1+\ldots+X_n)/n$ converge en probabilidad a $\mu$. Ie. $\forall\epsilon>0$: $$\lim_{n\rightarrow\infty}P(|\bar{X}_n-\mu|<\epsilon) = 1$$
+	\item \textbf{Ley fuerte}: Sea ${X_i} \quad i = 1,\ldots$ una secuencia de variables aleatorias \emph{independientes e idénticamente distribuidas} con valor esperado $\mu$, entonces:
+	$$P\left(\lim_{n\leftarrow \infty} \bar{X}_n = \mu\right) = 1$$
+\end{itemize}
+	
+\section{Otros}
+\begin{itemize}
+	\item Funciones de probabilidad: $(0,1)\rightarrow \mathbb{R}$
+	\begin{itemize}
+		\item $\logit(p) = \log\left(\frac{p}{1-p}\right)$
+		\item $\probit(p) = \Phi^{-1}(p)$
+	\end{itemize}
+\end{itemize}
+
+\end{document}
+
+

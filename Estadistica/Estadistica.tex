@@ -1,0 +1,182 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=2cm,top=1cm,right=2cm,bottom=2cm]{geometry} %Formato
+\usepackage[spanish]{babel} %Para escribir en español
+\decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+\usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+\usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+\usepackage{multicol}  % Latex a Dos Columnas
+\usepackage{float} % Poner mejor las imágenes.
+\usepackage{mathabx}
+
+\setlength\parindent{0pt} % Quitar las sangías
+% \setlength{\intextsep}{1pt plus 1pt minus 1pt} % Pámetro de texto entre figura e imágen.
+
+\DeclareMathOperator{\muestra}{\mathbf{y}}
+\DeclareMathOperator{\param}{\mathbf{\theta}}
+\DeclareMathOperator{\MLE}{\mathbf{\hat{\theta}}_{MLE}}
+\DeclareMathOperator{\that}{\mathbf{\hat{\theta}}}
+\DeclareMathOperator{\est}{\mathbf{t}}
+\DeclareMathOperator{\ty}{\mathbf{t}(\muestra)}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\valmed}{\mu_t(\theta)}
+\DeclareMathOperator*{\Ho}{H_0:}
+
+\title{Estadística}
+\author{Gianpaolo Luciano Rivera}
+\date{2016}
+
+\begin{document}
+\maketitle
+
+\section{Conceptos Generales}
+\begin{itemize}
+	\item \textbf{Muestra Aleatoria}: Una muestra es cualquier conjunto de \emph{variables aleatorias idénticamente distribuidas (v.a. iid)} sobre las que se hará inferencia. Representan un subconjunto de la población sobre la que se desea conocer un \emph{parámetro} en especifico.
+	\item \textbf{Datos observados}: son mi conjunto de v.a. $\muestra = (y_1,\ldots,y_n)$ usualmente independientes entre ellas.
+	\item \textbf{Tamaño de la muestra}: Número de observaciones registradas $n$.
+	\item \textbf{Parámetros}: Constantes\footnote{En estadística clásica} $\param = (\theta_1,\ldots,\theta_k)$ conocidas o desconocidas que permiten conocer alguna característica de la población. 
+	\item \textbf{Espacio paramétrico}: Conjunto $\Theta$ al que pertenecen los parámetros. $\param \in \Theta$
+	\end{itemize}.
+\section{Inferencia Estadistica}
+Dado nuestros datos, nos gustaría poder sacar o sintetizar la información que estos contienen sobre el fenómeno que estemos estudiando. Para ello diseñamos modelos estadísticos que logran describir con cierta precision la realidad. El principio básico es que queremos estimar o hacer inferencia en algún \emph{parámetro} de interés y ver si los datos lo respaldan y si es estadisticamente significativo.
+\begin{itemize}
+	\item \textbf{Verosimilitud}: Función de distribución (teórica) de mis datos y parámetros. $L(\param;\muestra) = f_{Y_1,\ldots,Y_n}(\muestra;\param)$. Y en caso de que las observaciones sean independientes entre sí $$L(\param;\muestra) = f_{Y_1,\ldots,Y_n}(\muestra;\param) = \prod_{i = 1}^n f_{Y_i}(y_i;\param)$$
+	\item \textbf{Log-Verosimilitud}: A veces es más fácil trabajar con el logaritmo de la verosimilitud. \linebreak $l(\param;\muestra) = \log L(\param;\muestra)$ y en caso de independencia: $l(\param;\muestra) = \sum_i^n\log[f_{Y_i}(y_i;\param)]$.
+	\item \textbf{Cociente de Verosimilitud}: Usado para normalizar la verosimilitud en su valor máximo $\MLE$ (Estimador de Máxima Verosimilitud). $L(\theta)/L(\that)$
+	\item \textbf{Desviación} Herramienta similar al cociente de verosimilitudes en escala logarítmica: \linebreak $D(\that,\theta) = 2[l(\that)-l(\theta)]$
+	\item \textbf{Estadístico}: Es una función $\est:\mathbb{R}^n \rightarrow \mathbb{R}^k$ de la muestra $\est(\muestra)$ que usualmente ``condensa'' la información.\footnote{La dimension de $\est$ puede ser mayor que la de $\theta$ sin embargo nunca puede ser menor pues si queremos usar $\est$ para hacer inferencia sobre $\theta$ nos haría falta información. Usualmente esperamos que sus dimensiones sean iguales.}
+	\item \textbf{Estadístico de Máxima Verosimilitud}: Es la variable que maximiza la verosimilitud: $\MLE = \that = \argmax_{\theta \in  \Theta} L(\theta) = \argmax_{\theta \in  \Theta} l(\theta)$ Hay muchas maneras de encontrarlo pero usualmente se maximiza de forma normal la función de verosimilitud.
+	\begin{itemize}
+		\item \textbf{Invarianza}: Si $\that$ es MLE y $g(\theta)$ es una función continua. Entonces $g(\that)$ es MLE en la nueva reparametrización. 
+	\end{itemize}
+	\item \textbf{Suficiencia}: Un estadístico $\est = \ty$ es suficiente para el parámetro $\theta \in \Theta$ si la distribución condicional de mis datos $\muestra$ dado $\est$ es libre de $\theta$. En otras palabras, cualquier resultado de $\muestra$ que tenga el mismo $\ty = \est$ nos debe llevar a la misma conclusión sobre $\theta$. $$ \text{Si } \ty = \mathbf{t}(\mathbf{z}) \iff \dfrac{L(\muestra;\theta)}{L(\mathbf{z};\theta)} \text{ no depende de } \theta \Rightarrow \est \text{ es suficiente}$$ 
+	\item \textbf{Criterio de Factorización}: Un estadistico $\est = \ty$ es suficiente para $\theta$ si y solo si, podemos factorizar la densidad como: $$f(\muestra;\theta) = g(\ty;\theta)h(\muestra)$$
+	\item \textbf{Suficiencia mínima} Como la representación de $\ty$ no es única, nos interesa la más pequeña posible. Un estadistico suficiente $\ty$ es \textbf{mínimo suficiente} si es una función de cualquier otro estadístico suficiente. Ie, tiene dimensión mínima
+	\item \textbf{Parámetros independientes a variaciones}: Los parámetros componentes de $\theta = (\psi,\lambda)$ son independientes a variaciones si el espacio parametrico $\Theta$ es el producto cartesiano de $\Psi$ y de $\Lambda$ respectivamente. Ie: $\Theta = \Psi \bigtimes \Lambda$. Y significa que el conjunto de valores de $\psi$ es el mismo para cada $\lambda$ fija.
+	\item \textbf{Ortogonalidad de la Verosimilitud}: Una parametrización dada: $\theta = (\psi,\lambda)$ donde los parametros son independientes a variaciones, se llama ortogonal en la verosimilitud si esta se puede factorizar: $L(\theta,\muestra) = L_1(\psi,t_1(\muestra))L_2(\lambda,t_2(\muestra))$ 
+\end{itemize}
+
+\subsection{Familias Exponenciales}
+\subsubsection{Regularidad y Propiedades Analíticas}
+Muchas distribuciones tienen características similares y se les llama \textbf{Familia Exponencial}. Haciendo esta generalización llegamos a muchas propiedades que se cumplen para todas ellas.\\
+Un modelo estadístico para una muestra $\muestra$ es una familia exponencial con \textbf{parámetro canónico} $\theta = (\theta_1,\ldots,\theta_k)$ y \textbf{estadístico canónico} $\est(\muestra) = (t_1(\muestra),\ldots,t_k(\muestra))$ si su densidad (o verosimilitud) $f$ tiene la forma $$L(\param;\muestra) = f(\muestra;\theta) = a(\theta)h(\muestra)e^{\theta^T \est(\muestra)}$$ donde $\theta^T \est(\muestra)$ es el producto punto de los dos vectores de tamaño $k$, y donde $a(\theta)$ y $h(\muestra)$ son dos funciones medibles.
+Se define la \textbf{constante normalizadora} como la estructura que hace que la densidad integre a 1: $$C(\theta) = \dfrac{1}{a(\theta)} = \int h(\muestra)e^{\theta^T \est(\muestra)}\, d\muestra$$
+\begin{itemize}
+	\item Si $\muestra$ tiene una distribución exponencial, entonces la distribución de $\est$ es también exponencial y bajo ciertas condiciones de regularidad en $\ty$ la distribución de $\est$ es:$$f(\est;\theta) = a(\theta)g(\est)e^{\theta^T\est}$$ donde la \textbf{función de estructura}: $$g(\est) = \sum_{\ty = \est}h(\muestra) = \int_{\ty = \est}h(\muestra) \,d\muestra$$
+	\item El \textbf{orden} de una familia exponencial es la dimensión más baja del estadístico canónico para la cual la familia de distribuciones se puede representar. La representación es \textbf{minima} si el estadístico canónico $\est$ tiene esa dimensión. Para revisar esto, solo hay que ver que no haya dependencia linear entre los elementos de $\est$ y $\theta$. 
+	\item  Una familia exponencial mininima es llamada \textbf{llena} si su espacio paramétrico es \emph{maximal}, ie: es igual al espacio canónico $\Theta$. 
+	\item Si $\muestra$ es exponencial y su representación es mínima, entonces el estadístico $\est = \ty$ es \textbf{mínimo suficiente} para $\theta$. 
+	\item El espacio paramétrico $\Theta$ es un \emph{conjunto convexo} en $\mathbb{R}^k$.
+	\item \textbf{Familias regulares}: Una familia exponencial de orden $k$ es llamada \textbf{regular} si el espacio paramétrico $\Theta$ es un conjunto abierto en $\mathbb{R}^k$. Nota: si solo hay un conjunto finito de valores de $t$ entonces una familia llena es necesariamente regular y el espacio parámetro canónico $\Theta = R^{\text{dim}t}$
+	\item \textbf{Propiedades de $C(\theta)$}.
+	\begin{itemize}
+		\item $C(\theta)$ es estrictamente convexa
+		\item Para una familia reglar arbitrariamente diferenciable tenemos el \textbf{vector de medias} y la \textbf{matriz de covarianza}:
+		\begin{align*}
+			\nabla \log C(\theta) &= \E_\theta[\est] = \mu_t(\theta)\\
+			\nabla^2 \log C(\theta) &= \Var_\theta[\est] = V_t(\theta)
+		\end{align*}
+		\item \textbf{Momentos de orden mayor}:
+		\begin{align*}
+			\E_\theta[e^{\psi^T\est}] &= \dfrac{C(\theta + \psi)}{C(\theta)} \\
+			\E_\theta[t_j^r] &= \dfrac{\delta^rC(\theta)}{\delta\theta_j^r}\dfrac{1}{C(\theta)}
+		\end{align*}
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Verosimilitud y Máxima Verosimilitud}
+La función de \emph{log-verosimilitud} para una familia exponencial $$\log L(\theta) = \theta^T \est - \log C(\theta) + h(\muestra)$$ con $h(\muestra)$ una contante es una función suave y estrictamente cóncava. La función de \textbf{marcador} es el gradiente de esta $$U(\theta) = \nabla \log L(\theta) = \est - \mu_t(\theta)$$ que si se iguala a cero y resolvemos el sistema para $\theta$ encontramos el $\MLE$. Derivando nuevamente y cambiando el signo obtenemos la \textbf{información observada}:$$J(\theta) = - \nabla U(\theta) = - \nabla^2 \log L(\theta)$$ que en $\that$ debe ser una cantidad positiva o en su defecto una matriz positiva definida. La \textbf{información de Fisher o información esperada} es el valor esperado de la información observada. $$I(\theta) = \E_\theta[J(\theta)]$$ En particular para modelos exponenciales\footnote{Esto no es cierto para otro tipo de distribuciones, sin embargo siempre tenemos que \emph{para la parametrización canónica} $J(\that) = I(\that)$} tenemos:
+$$I(\theta) = J(\theta) = V_t(\theta)$$
+\begin{itemize}
+	\item $\E[U(\theta,\muestra)] = 0$
+	\item En una familia regular exponencial $\mu_t(\theta)$ es una función uno a uno de $\theta$ para $\theta \in \Theta$ con $\mu_t(\Theta)$ también abierto. La función de log verosimilitud tiene un máximo único en $\Theta$ si y solo si $\est \in \mu_t(\Theta)$ y entonces el $\MLE(\est)$ es la raíz única de la \textbf{ecuación de verosimilitud}: $\valmed = \est$.
+	\item $\MLE(\est) = \mu_t^{-1}(\est)$
+\end{itemize}
+
+\subsubsection{Parametrizaciones alternativas}
+A veces es más conveniente usar otra parametrización, es decir, poner todo en función de otra variable $\psi = \psi(\theta)$ o dada su inversa. 
+\begin{itemize}
+	\item \textbf{Lema de Reparametrización}: Si $\psi$ o $\theta = \theta(\psi)$ son dos parametrizaciones equivaelentes del mismo modelo entonces tenemos que las funciones de marcador están relacionadas: $$U_\psi(\psi;\muestra) = \left(\dfrac{\delta \theta}{ \delta \psi}\right)^T U_\theta(\theta(\psi);\muestra)$$.
+	De manera análoga las correspondientes matrices de información:
+	\begin{align*}
+	I_\psi(\psi) &= \left(\dfrac{\delta \theta}{ \delta \psi}\right)^T I_\theta(\theta(\psi))\left(\dfrac{\delta \theta}{ \delta \psi}\right)\\
+		J_\psi(\hat{\psi})& = \left(\dfrac{\delta \theta}{ \delta \psi}\right)^T J_\theta(\theta(\hat{\psi}))\left(\dfrac{\delta \theta}{ \delta \psi}\right)
+	\end{align*}
+	\item \textbf{Parametrización de Valor Medio}: el parámetro de valor medio es $\valmed$ y es estimado insesgadamente por su MLE $\hat{\mu_t} = \est$. Su varianza es $\Var[\hat{\mu_t}] = \Var[\est]$ que es la inversa de la matriz de información de Fisher bajo parametrización con $\mu_t$. $$I(\mu_t) = \Var(\est)^{-1}$$ y en el MLE se cumple $J(\hat{\mu_t}) = I(\hat{\mu_t})$
+	\item \textbf{Parametrización mixta}: Se usa cuando queremos hacer inferencia condicional. Si tenemos nuestro estadístico canónico particionado en: $\est = (u,v)^T$ y el correspondiente parámetro canónico: $\theta = (\theta_u, \theta_v) ^T$ respectivamente entonces:
+	\begin{itemize}
+		\item El modelo marginal para $u$ es una familia regular exponencial para cada $\theta_v$ dada, dependiendo de $\theta_v$ pero con uno y el mismo espacio paramento para su parámetro de valor medio $\mu_u$
+		\item E modelo condicional para $\muestra$ dado $u$ y por lo tanto para $v$ dado $u$ es una familia regular exponencial con estadístico canónico $v$. El modelo condicional depende de $u$ pero con uno y el mismo espacio para métrico $\theta_v$ como en el modelo conjunto.
+		\item Si una familia regular exponencial es dada una parametrización mixta $(\mu_u,\theta_v)$ los dos componentes de los parámetros son independientes a variaciones y ortogonales en información. Además la info de Fisher esta dada por: $$I(\mu_u,\theta_v) = \begin{bmatrix}
+		\Var[u]^{-1} & 0 \\
+		0 & (Var[t]^{vv})^{-1}
+		\end{bmatrix}$$
+	\end{itemize}
+		\item \textbf{Inferencia condicional para el parámetro canónico}: Supongamos que tenemos un parámentro de interés $\psi$ que se puede expresar linearmente en el parámetro canónico $\theta$ y otro que es una molestia\footnote{nuisance} $\lambda$ o $\mu_u = \E_\theta[u]$ que es \emph{independiente a variaciones de $\psi$}, ie: $\theta = (\psi,\lambda)$. Después de hacer la transformación linear correspondiente a mi estadistico $t$, tenemos que $t = (v,u)$.
+	\begin{itemize}
+		\item \textbf{Principio de Condicionalidad}: Inferencia estadistica sobre el parámetro de interés $\psi$ en presencia de la molestia deberá ser condicionando en $u$. Esto es, la distribución condicional de $y$ o $v$ dado $u$. 
+		\item La verosimilitud para $(\psi, \mu_u)$ se factoriza: $$L(\theta,\est) = L_1(\psi,v|u)L_2(\mu_u,\psi;u)$$ 
+		\item En algunos casos, $L_2$ solo depende de $\mu_u$ y la situación es llamada \textbf{S-auxilliar}\footnote{S-ancillarity} y se dice que hay un \textbf{corte}.
+	\end{itemize}
+	\item \textbf{Perfil de Verosimilitud} Cuando tenemos nuestro parámetro de interés $\psi$ y la molestia $\lambda$. Encontramos $\hat{\lambda}(\psi)$ y construimos el \emph{perfil de verosimilitud} $L_p(\psi) = L(\psi,\hat{\lambda}(\psi))$ para dejar todo en una sola variable. Esta función tiene la curvartura correcta para expresar información sobre $\psi$ en comparación contra $L(\psi,\hat{\lambda})$. Esta curvatura está dada por: $-\nabla^2 \log L_p(\psi) = J_{\psi\psi}- J_{\psi\lambda}J_{\lambda\lambda}^{-1}J_{\lambda\psi}$ con las matrices calculadas en $(\psi,\hat{\lambda}(\psi))$
+\end{itemize}
+
+\subsubsection{Completitud y Teorema de Basu}
+\begin{itemize}
+	\item \textbf{Completitud}: Un estadístico $\est$ es completo (o la familia de distribuciones del estadístico $\est$ es completa) si la propiedad. $$\E[h(\est)] = 0 \quad \forall \theta \in \Theta$$ para alguna función $h(\est)$, requiere que la función $h(\est)$ sea cero. Que un estadístico sea completo significa que el modelo parametrico es suficientemente rico para alcanzar la dimensión de este, ie: son las mismas.
+	\item En una familia exponencial llena, el estadístico canónico $\est = \ty$ es completo.
+	\item \textbf{Teorema de Basu}: Si $\est$ es un estadístico suficiente y completo, tipicamente siendo el canónico en una familia exponencial llena, sea $\mathbf{u}$ otro estadístico, entonces $\mathbf{u}$ y $\est$ son mutuamente independientes precisamente cuando la distribución de $\mathbf{u}$ sea libre de parámetros.
+\end{itemize}
+
+\subsection{Propiedades Asintoticas del MLE}
+\subsubsection{Asintotas para muestras grandes}
+\begin{itemize}
+	\item \textbf{Existencia y consistencia del MLE de $\theta$}: para una muestra de tamaño $n$ de una familia regular exponencial y para cada $\theta \in \Theta$ la $P(\that(\est_n/n) \text{ exista};\theta) \rightarrow 1 \quad \text{cuando} \quad n \rightarrow \infty$.Además $\that(\est_n/n) \rightarrow \theta$ en probabilidad si $n \rightarrow \infty$. Ambas convergencias son uniformes en subconjuntos compactos de $\Theta$. 
+	\item Nota: el resultado aplica para cualquier otra reparametrización.
+	
+	\item \textbf{Normalidad asintotica del MLE}: Para una muestra de tamaño $n$ de una familia regular exponencial, y para cualquier función del parámetro $\eta = \eta(\mu_{\est})$, el MLE $\hat{\eta}$ es asintoticamente normal si $n \rightarrow \infty$, ie: $$\sqrt{n}(\hat{\eta}-\eta) \sim N\left(0, \left( \dfrac{\delta \eta}{ \delta \mu_{\est}} \right) ^T \Var(\est) \left(\dfrac{\delta \eta}{ \delta \mu_{\est} }\right) \right) $$ donde $\Var(\est)$ es la matriz de covarianza para $\est$ expresado en una parametrizacion correcta y estimada en el MLE.Para el parámetro canonico tenemos que:$$\sqrt{n}(\that-\theta) \sim N(0,V_t(\theta)^{-1})$$
+	\item La familia regular exponencial implica que el MLE es unico y es un maximo global.
+\end{itemize}
+\subsubsection{Aproximaciones de Punto-Silla}
+Técnicas para aproximar densidades cuando la normal (o $\chi^2$) es demasiado cruda.
+\begin{itemize}
+	\item \textbf{Aproximiación de Punto-Sila}: La aproximación de una densidad $f(t)$ en una familia exponencial es: $$f(t;\theta_0) \approx \dfrac{1}{(2\pi)^k/2\sqrt{\det V_t(\that(t))}}\dfrac{C(\that(t)}{C(\theta_0)}e^{(\theta_0 - \that(t))^Tt}$$ con la función de estructura correspondiente: $$g(t) \approx \dfrac{1}{(2\pi)^k/2\sqrt{\det V_t(\that(t))}}C(\that(t))e^{\that(t)^Tt}$$
+	\item \textbf{Aproximiación de Punto-Sila para el MLE}: La aproximación de a densidad $f(hat{\psi};\psi_0)$ de un MLE $\hat{\psi} = \hat{\psi}(t)$ en cualquier parametrización suave de una familia regular exponencial es: $$f(\hat{\psi};\psi_0) \approx \dfrac{\sqrt{\det I(\hat{\psi})}}
+	{(2\pi)^{k/2}}\dfrac{L(\psi_0)}{L(\hat{\psi)}}$$ con $I(\hat{\psi})$ es la matriz de información de Fisher para el parametro $\psi$ evaluada en el MLE.
+\end{itemize}
+	
+\subsection{Pruebas para reducir modelos}
+\subsubsection{Pruebas Asintoticamente equivalentes}
+Sea $\theta = (\psi,\lambda)^T$, bajo mi hipótesis nula $\Ho \psi = \psi_0$ quiero probar si puedo reducir la dimensionalidad de mi modelo  $\dim(\psi) + \dim(\lambda)$ a $\dim(\lambda)$. Tengo cuatro pruebas que bajo condiciones de regularidad y si $n\rightarrow\infty$ se distribuyen: $\chi^2(\dim\psi)$
+\begin{itemize}
+	\item \emph{Desviación}: $W = 2[l(\that)-l(\that_0)]$
+	\item \emph{Prueba de Wald}: $W_e = (\hat{\psi}-\psi_0)^T(I^{\psi\psi})^{-1}(\hat{\psi})(\hat{\psi}-\psi_0)=$
+	\item \emph{Prueba de Marcador de Rao}: $W_u = U(\that_0)^T I(\that_0)^{-1}U(\that_0)$
+	\item \emph{Forma Cuadrática}: $W_e^* = (\that_0-\that)^TI(\that_0)(\that_0-\that)$
+\end{itemize}
+
+
+\section{Notas adicionales}
+\begin{itemize}
+	\item \textbf{Matriz Jacobiana}: Sean $y$ y $x$ funciones vectoriales se define su derivada como:
+	$$\dfrac{dy}{dx^T} = \begin{bmatrix}
+	\dfrac{\delta y_1}{\delta x^T}\\
+	\vdots\\
+	\dfrac{\delta y_n}{\delta x^T}
+	\end{bmatrix} = 
+	\begin{bmatrix}
+	\left(\dfrac{\delta y_1}{\delta x}\right)^T\\
+	\vdots\\
+	\left(\dfrac{\delta y_n}{\delta x}\right)^T
+	\end{bmatrix} = \dfrac{dy^T}{dx}$$
+\end{itemize}
+\end{document}
