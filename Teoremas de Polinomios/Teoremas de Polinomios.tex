@@ -1,0 +1,56 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=2cm,top=1cm,right=2cm,bottom=2cm]{geometry} %Formato
+\usepackage[spanish]{babel} %Para escribir en español
+\decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+\usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+\usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+\usepackage{multicol}  % Latex a Dos Columnas
+\usepackage{float} % Poner mejor las imágenes.
+
+\setlength\parindent{0pt} % Quitar las sangías
+% \setlength{\intextsep}{1pt plus 1pt minus 1pt} % Pámetro de texto entre figura e imágen.
+
+\title{Teoremas de Polinomios}
+\author{Santiago Alonso}
+\date{Junio 2018}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+	\item \textbf{Teorema del Residuo}: Sea cualquier polinomio $p(x)$, cuando se divide entre entre $(x-a)$ entonces, el residuo es $p(a)$. Por lo tanto, para que $(x-a)$ sea \textit{factor}, necesitamos que $p(a)=0$. Además, se dice que $a$ es un \textit{cero} o una \textit{raíz del polinomio}.
+	\item \textbf{Teorema del factor}: Si $(x-a)$ es factor de $p(x)$ entonces podemos reescribir:
+	
+	$$p(x)= (x-a)q(x)$$
+	
+	Con $q(x)$ otro polinomio de un grado menor que $p(x)$. Además, los ceros de $q(x)$ serán también ceros de $p(x)$
+	
+	\item \textbf{Teorema de Raíces Racionales}. Sea:
+	$$p(x) = a_nx^n + a_{n-1}x^{n-1} + \ldots + a_3x^3 + a_2x^3 + a_1x + a_0$$
+	Cualquier polinomio. Si este tiene \textit{raíces racionales} es decir, raíces de la forma $c/d$ entonces $c$ es un factor de $a_0$ y $d$ es un factor de $a_n$. Es decir:
+	
+	$$a =\dfrac{c}{d} = \dfrac{\text{fact}(a_0)}{\text{fact}(a_n)}$$
+	
+	\item \textbf{Teorema de las Raíces Complejas}: Si $p(x)$ es cualquier polinomio con \textit{coeficientes reales}. Es decir, todas las $a_i$ son números normales. Y el número complejo $a = c + di$ una raíz compleja de $p(x)$, es decir $p(a) = 0$ entonces, el conjugado de $\hat{a}$ igual a $\hat{a} = c - di$ también es raíz.
+
+	\item \textbf{Teorema del Valor Intermedio}: Sea $p(x)$ un polinomio con coeficientes reales. Sea $a$ un punto tal que $p(a)>0$ y un punto $b$ tal que $p(b)<c$. Entonces existe un punto $c$ entre $a$ y $b$ que es una raiz. Es decir: $p(c) = 0$. Esto sigue porque los polinomios son continuos y si encontramos un punto donde la gráfica va, \textit{por arriba del eje $x$} y otro donde va \textit{por abajo}, podemos concluir que en al menos un punto lo está cruzando. El argumento funciona igual si va de abajo para arriba. 
+
+
+	\item \textbf{Teorema de Cotas Máximas} Sea $p(x)$ un polinomio. Todos los zeros reales de este, se encuentran en el intervalo $(-M,M)$ donde $M$ es igual a :
+	
+	$$M = 1 + \dfrac{\max{\left\{|a_0|, |a_1|, \ldots, |a_{n-1}| \right\}}}{|a_n|}$$
+	
+	Es decir, si existen raíces reales, podemos \textit{acotar el intervalo} donde todos se encuentran. Solo basta tomar en valor absoluto el mayor de los coeficientes que no sean el principal (ie $a_n$), y dividirlo entre el valor absoluto de $a_n$, y sumarle 1. Ese número llamado $M$, marca una cota superior e inferior para encontrar rápidamente todas las posibles raíces. 		
+	
+	\item \textbf{Teorema de Cotas Inferiores y Superiores} Más que un teorema, es una regla para ir descartando posibles raices. Son dos; para las \textbf{cotas superiores}, tomas un número positivo $a>0$, si haces división sintética, todos los \textit{resultados} tienen signos positivos, entonces $a$ es una cota superior para todas las raices. Por el contrario si $a<0$ y al aplicar división sintética los signos se alternan, entonces $a$ es una cota inferior. En caso de que tengamos ceros en la división estos se pueden obviar y usar como \textit{comodines}, ie: no importan. 
+	
+\end{itemize}
+\end{document}
