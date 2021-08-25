@@ -1,0 +1,110 @@
+\documentclass[pdftex,11pt,a4paper]{article}
+
+%Paquetes importantes
+\usepackage[left=2cm,top=1cm,right=2cm,bottom=2cm]{geometry} %Formato
+% \usepackage[english]{babel} %Para escribir en español
+% \decimalpoint
+\usepackage[utf8]{inputenc} %Acentos y demás
+\usepackage{amsmath} %Simbolos y cosas bonitas
+\usepackage{amsfonts} %Simbolos y cosas bonitas
+\usepackage{array} %Tablas bonitas
+% \usepackage{listings} % Insertar Código
+\usepackage[pdftex]{graphicx} % Imagenes
+\usepackage{hyperref} %Hipervinculos
+% \usepackage{pdflscape} %Poner algunas páginas en Horizontal \begin{landscape}
+\usepackage{multicol}  % Latex a Dos Columnas
+\usepackage{float} % Poner mejor las imágenes.
+
+\setlength\parindent{0pt} % Quitar las sangías
+% \setlength{\intextsep}{1pt plus 1pt minus 1pt} % Pámetro de texto entre figura e imágen.
+
+\title{Linear Algebra}
+\author{Paolo Luciano Rivera}
+\date{2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\B}{\mathbf{B}}
+
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\ihat}{\hat{\textbf{\i}}}
+\newcommand{\jhat}{\hat{\textbf{\j}}}
+\newcommand{\xn}{\mathbf{x}}
+\newcommand{\yn}{\mathbf{y}}
+\newcommand{\un}{\mathbf{u}}
+\newcommand{\vn}{\mathbf{v}}
+\newcommand{\wn}{\mathbf{w}}
+\begin{document}
+\maketitle
+
+\section{Definitions}
+\subsection{Vectors and Vector Spaces}
+\begin{itemize}
+	\item The set $V$ is called a \textit{vector space} over field $F$ when the \textit{vector addition} and \textit{scalar multiplications} operations satisfy the following properties (for all $\un, \vn, \wn \in V$ and $a, b \in F$)
+	\begin{itemize}
+		\item \textbf{Closure property for addition}: $\un + \vn \in V$
+		\item \textbf{Associativity of addition}: $\un + (\vn + \wn) = (\un + \vn) + \wn$
+		\item \textbf{Commutativity of addition}: $\un + \vn = \vn + \un$
+		\item \textbf{Zero of addition}: There is an element $\zero \in V$ such that $\un + \zero = \un$
+		\item \textbf{Inverse element of addition}: For every $\un \in V$ there exists an element $-\un \in V$, called the additive inverse of $\un$ such that $\un + (-\un) = \zero$
+		\item \textbf{Closure of multiplication}: $a \un \in V$ for all $a \in F$
+		\item \textbf{Compatibility of multiplication with field}: $(ab)\un = a(b\un)$
+		\item \textbf{Identity element of multiplication}: There is an element $\one \in V$ such that $\one \un = \un$
+		\item \textbf{Distributivity of multiplication with respect to addition}: $a(\un + \vn) = a\un + a\vn$
+		\item \textbf{Distributivity of multiplication with respect to field addition}: $(a + b)\un = a\un + b\un$
+	\end{itemize}
+	
+	\item A \textit{linear combination} is $\wn = a\un + b\vn$
+	\item The \textit{span} of $\un$ and $\yn$ is the set of \textbf{all} \textit{linear combinations} ($a, b \in \mathbb{R}$):
+	$$a \un + b \vn$$  
+	\item When $\un$ is a linear combination of the others basis vectors, then it's \textit{linearly dependent}
+	\item If $\un \neq a\vn + b \wn$ for all values of $a, b$ then $\un$ is linearly independent
+ 	\item The basis $\B$ of a \textit{vector space} $V$ is a set of \textit{linearly independent} vectors that \textit{span} the full space
+\end{itemize}
+
+\subsection{Linear Transformations and Matrices}
+
+\section{Linear Algebra Intuition}
+Notes from the \href{https://www.youtube.com/watch?v=fNk_zzaMoSs&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab}{3B1B video series.}
+\subsection{Vectors and Vector Spaces (Chap 1 \& 2)}
+\begin{itemize}
+	\item Vectors $\xn = (x_1, \ldots, x_n)$ can be viewed interchangeably as \textbf{ordered lists} or as objects with length and direction, i.e. an arrow
+	\item Vectors are points in L.A., sometimes it's easier to think of them as arrows, sometimes as points (when you have many), sometimes as lists (when you're programming)
+	\item Vectors live in a \textbf{vector space} $V$ that has certain properties 
+	\item In Linear Algebra (L.A.) vectors always start at the origin $\zero = (0,\ldots,0)$
+	\item Vectors are almost always represented as column vectors
+	\item Vectors have a sum $+$ and a scalar multiplication $\cdot$
+	\item Vector sum can be viewed as a translation to the vector space, similarly to how real numbers translate the $\R$
+	\item Scalar multiplication can be viewed as \textit{scaling} the vector by the magnitude of the scalar
+	\item Any vector $\xn$ can be viewed as the \textit{linear combination} of the basis vectors (on a given space). e.g. for $\R^2$
+	$$\xn = 3\ihat -2\jhat = (3,-2)$$
+	\item When you think of a vector space, you have to think about the basis of it $\B$, in the previous example $\ihat$ and $\jhat$ \textit{span} $\R^2$. This means that any time you write a vector, it implicitly depends on the choice o f basis you're using!
+	\item In higher dimensions, the \textit{span} is more important because it creates \textit{subspaces}. e.g. $\mathbb{R}^2$ is a subspace of $\mathbb{R}^3$, i.e. a plane that cuts through 3D space
+\end{itemize}
+
+\subsection{Linear Transformations and Matrices (Chap 3 \& 4)}
+\begin{itemize}
+	\item A \textit{linear transformation} can be seen as a function that takes an input and returns one of the same class. In this case, vectors in a given vector space. The transformation however, implies \textit{movement}, in this case, the vector space
+	\item In the case, given a matrix $A$, its multiplication scales all the space itself! However, it does satisfy certain special properties: a) all lines remain lines and b) the origin remains fixed. I.e. grid lines remain parallel and evenly spaced. e.g. rotations around the origin, translations, etc. 
+	\item An easy way to think about a linear transformation (matrix) $A$ is to take each column and associate it with each basis vectors e.g. $\ihat$ and $\jhat$ for 2D. Each basis vector will land on each column of $A$ fully specifying the transformation
+\end{itemize}
+
+
+
+\section{Useful Properties}
+\subsection{Matrices}
+\begin{itemize}
+	\item \textbf{$2x2$ matrices}
+	$A = \begin{bmatrix}
+	a&b\\c&d
+	\end{bmatrix} $
+	\begin{itemize}
+		\item \textbf{Inverse} If $\det(A) = ad -cd \neq 0 \Rightarrow A^{-1} = \dfrac{1}{ad-cd}	\begin{bmatrix}
+			d & -b \\
+			-c & a
+		\end{bmatrix}$
+	\end{itemize}
+\end{itemize}
+\end{document}
